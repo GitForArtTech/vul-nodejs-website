@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RASP test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <div>
+      <form method="GET" action="">
+        <input type="text" placeholder="請輸入" name="q" />
+        <button type="submit" id="click">送出</button>
+      </form>
+    </div>
+    <div id="results"></div>
+  </body>
+
+  <script>
+    let q = getQuery("q");
+    $("#results").append(q);
+
+    function getQuery(name) {
+      let pairs = window.location.search.substring(1).split("&"); // q=%3Cscript%3Ealert%28%22XSS%22%29%3C%2Fscript%3E
+      let pair;
+      for (let index = 0; index < pairs.length; index++) {
+        pair = pairs[index].split("=");
+
+        if (decodeURIComponent(pair[0]) === name) {
+          return decodeURIComponent(pair[1]);
+        }
+      }
+
+      return false;
+    }
+  </script>
+</html>
