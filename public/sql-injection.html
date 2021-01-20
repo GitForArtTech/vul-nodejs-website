@@ -228,80 +228,74 @@
         </div>
       </div>
     </nav>
-
-    <form
-      class="flex flex-col-reverse divide-y divide-y-reverse divide-rose-400 m-56 border-2 border-red-500"
-    >
-      <h2>SQL</h2>
-      <br />
-      <input
-        id="name"
-        class="input"
-        type="text"
-        name=""
-        placeholder="name"
-        size="10"
-        required
-      />
-      <br />
-      <!-- <label class="password">密碼</label> -->
-      <input
-        id="password"
-        class="input"
-        type="password"
-        name=""
-        placeholder="password"
-        size="20"
-      />
-      <div id="Button">
-        <button class="Btn" onclick="clickBtn()">Login</button>
-        <button class="Btn" onclick="clickInjectBtn()">Injection</button>
+    <div class="flex w-4/6 h-3/5 md:my-32 md:mx-60 pl-24">
+      <div
+        class="w-2/5 h-64 border-4 border-gray-800 border-opacity-75 inline-block Segoe UI text-center rounded-3xl"
+      >
+        <h2 class="w-1/5 md:my-2">SQL Injection</h2>
+        <br />
+        <span>帳號</span>
+        <input
+          id="name"
+          class="w-3/5 md:my-5 border-2 rounded-lg border-gray-800 focus:ring-2 focus:ring-gray-300 focus:rounded-lg focus:outline-none"
+          type="text"
+          name="name"
+          placeholder="name"
+          size="10"
+        />
+        <br />
+        <span>密碼</span>
+        <input
+          id="password"
+          class="w-3/5 md:my-3 border-2 rounded-lg border-gray-800 focus:ring-2 focus:ring-gray-300 focus:rounded-lg focus:outline-none"
+          type="password"
+          name="password"
+          placeholder="password"
+          size="20"
+        />
+        <div id="Button">
+          <button
+            class="w-2/5 md:my-5 border-2 rounded-lg border-gray-800 hover:bg-gray-800 hover:text-white"
+            onclick="clickBtn()"
+          >
+            Login
+          </button>
+          <button
+            class="w-2/5 md:my-5 border-2 rounded-lg border-gray-800 hover:bg-gray-800 hover:text-white"
+            onclick="clickInjectBtn()"
+          >
+            Injection
+          </button>
+        </div>
+        <!-- </form>ml-24 w-full bg-gray-800 text-white -->
       </div>
-      <!-- </form> -->
-    </form>
-    <div id="msgForm">
-      <textarea name="msg" id="msg" readonly="readonly"></textarea>
+      <div>
+        <textarea
+          name="msg"
+          id="msg"
+          class="ml-24 w-full h-64 bg-gray-800 text-white rounded-3xl"
+        ></textarea>
+      </div>
     </div>
   </body>
 </html>
+
 <script>
-  // function clickBtn() {
-  //   axios
-  //     .post("https://rasp-node.herokuapp.com/index/login", {
-  //       name: $("#name").val(),
-  //       password: $("#password").val(),
-  //     })
-  //     .then((res) => {
-  //       if (res.data) $("#msg").val(res.data.message);
-  //       else alert("login failed");
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }
-  // function clickTestBtn() {
-  //   axios
-  //     .post("https://rasp-node.herokuapp.com/test/login", {})
-  //     .then((res) => {
-  //       if (res.data) alert(JSON.stringify(res.data));
-  //       else alert("login failed");
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }
-  // function clickInjectBtn() {
-  //   axios
-  //     .post("https://rasp-node.herokuapp.com/injection/login2", {
-  //       name: $("#name").val(),
-  //       password: $("#password").val(),
-  //     })
-  //     .then((res) => {
-  //       if (res.data) $("#msg").val(res.data.message);
-  //       else alert("login failed");
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }
+  function clickInjectBtn() {
+    //let name = $("#name").val(); admin' or '1' ='1
+
+    axios
+      .post("http://127.0.0.1:8787/injection/login2", {
+        name: $("#name").val(),
+        password: $("#password").val(),
+      })
+      .then((res) => {
+        alert(JSON.stringify(res.data));
+        if (res.data) $("#msg").val(res.data.message);
+        else alert("login failed");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 </script>
